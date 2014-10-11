@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Create SendAPic Event</title>
+<link rel="stylesheet" type="text/css" href="public/stylesheets/createNewEvent.css" media="all">
+<script type="text/javascript" src="/public/js/view.js"></script>
+<script type="text/javascript" src="/public/js/calendar.js"></script>
+</head>
+<body id="main_body" >
+	
+	<img id="top" src="/public/images/top.png" alt="">
+	<div id="form_container">
+	
+		<h1><a>Create SendAPic Event</a></h1>
+		<form id="form_895289" class="appnitro"  method="post" action="postNewEvent" enctype="multipart/form-data">
+					<div class="form_description">
+			<h2>Create SendAPic Event</h2>
+			<p>Here you can create a new event</p>
+		</div>						
+			<ul >
+			
+					<li id="li_6" >
+		<label class="description" for="element_6">Choose action </label>
+		<div>
+		<select class="element select medium" id="element_6" name="formChosenAction"> 
+			<option value="" selected="selected"></option>
+<option value="1" >Create new event</option>
+<option value="2" >Edit Event</option>
+<option value="3" >Close Event</option>
+
+		</select>
+		</div> 
+		</li>		<li id="li_1" >
+		<label class="description" for="element_1">Name of Event </label>
+		<div>
+			<input id="element_1" name="nameOfEvent" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_7" >
+		<label class="description" for="element_7">Name of client </label>
+		<span>
+			<input id="element_7_1" name= "firstNameOfClient" class="element text" maxlength="255" size="8" value=""/>
+			<label>First</label>
+		</span>
+		<span>
+			<input id="element_7_2" name= "lastNameOfClient" class="element text" maxlength="255" size="14" value=""/>
+			<label>Last</label>
+		</span> 
+		</li>		<li id="li_2" >
+		<label class="description" for="element_2">Select Event starting Date </label>
+		<span>
+			<input id="element_2_1" name="startDateDay" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_2_1">DD</label>
+		</span>
+		<span>
+			<input id="element_2_2" name="startDateMonth" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_2_2">MM</label>
+		</span>
+		<span>
+	 		<input id="element_2_3" name="startDateYear" class="element text" size="4" maxlength="4" value="" type="text">
+			<label for="element_2_3">YYYY</label>
+		</span>
+	
+		<span id="calendar_2">
+			<img id="cal_img_2" class="datepicker" src="/public/images/calendar.gif" alt="Pick a date.">	
+		</span>
+		<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_2_3",
+			baseField    : "element_2",
+			displayArea  : "calendar_2",
+			button		 : "cal_img_2",
+			ifFormat	 : "%B %e, %Y",
+			onSelect	 : selectEuropeDate
+			});
+		</script>
+		 
+		</li>		<li id="li_3" >
+		<label class="description" for="element_3">Start Event Hour </label>
+		<span>
+			<input id="element_3_1" name="startTimeHour" class="element text " size="2" type="text" maxlength="2" value=""/> : 
+			<label>HH</label>
+		</span>
+		<span>
+			<input id="element_3_2" name="startTimeMinutes" class="element text " size="2" type="text" maxlength="2" value=""/> : 
+			<label>MM</label>
+		</span>
+		<span>
+			<input id="element_3_3" name="startTimeSeconds" class="element text " size="2" type="text" maxlength="2" value=""/>
+			<label>SS</label>
+		</span>
+		<span>
+			<select class="element select" style="width:4em" id="element_3_4" name="startTimeAmPm">
+				<option value="AM" >AM</option>
+				<option value="PM" >PM</option>
+			</select>
+			<label>AM/PM</label>
+		</span> 
+		</li>		<li id="li_4" >
+		<label class="description" for="element_4">End Date </label>
+		<span>
+			<input id="element_4_1" name="stopDateDay" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_4_1">DD</label>
+		</span>
+		<span>
+			<input id="element_4_2" name="stopDateMonth" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_4_2">MM</label>
+		</span>
+		<span>
+	 		<input id="element_4_3" name="stopDateYear" class="element text" size="4" maxlength="4" value="" type="text">
+			<label for="element_4_3">YYYY</label>
+		</span>
+	
+		<span id="calendar_4">
+			<img id="cal_img_4" class="datepicker" src="/public/images/calendar.gif" alt="Pick a date.">	
+		</span>
+		<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_4_3",
+			baseField    : "element_4",
+			displayArea  : "calendar_4",
+			button		 : "cal_img_4",
+			ifFormat	 : "%B %e, %Y",
+			onSelect	 : selectEuropeDate
+			});
+		</script>
+		 
+		</li>		<li id="li_5" >
+		<label class="description" for="element_5">End Event Hour </label>
+		<span>
+			<input id="element_5_1" name="stopTimeHour" class="element text " size="2" type="text" maxlength="2" value=""/> : 
+			<label>HH</label>
+		</span>
+		<span>
+			<input id="element_5_2" name="stopTimeMinutes" class="element text " size="2" type="text" maxlength="2" value=""/> : 
+			<label>MM</label>
+		</span>
+		<span>
+			<input id="element_5_3" name="stopTimeSeconds" class="element text " size="2" type="text" maxlength="2" value=""/>
+			<label>SS</label>
+		</span>
+		<span>
+			<select class="element select" style="width:4em" id="element_5_4" name="stopTimeAmPm">
+				<option value="AM" >AM</option>
+				<option value="PM" >PM</option>
+			</select>
+			<label>AM/PM</label>
+		</span> 
+		</li>
+			
+					<li class="buttons">
+			    <!-- <input type="hidden" name="form_id" value="895289" /> -->
+			    
+				<input id="saveForm" class="button_text" type="submit"  value="Submit" />
+		</li>
+			</ul>
+		</form>	
+		<div id="footer">
+			Generated by 
+			<img id="appByTriLogo" src="/public/images/appByTriLogo.png" alt="" align="middle">
+		</div>
+	</div>
+	<img id="bottom" src="/public/images/bottom.png" alt="">
+	</body>
+</html>

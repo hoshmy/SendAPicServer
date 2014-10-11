@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+ 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <title>Send A Pic</title>
+	</head>
+	<body>
+ 		<form action="/upload" method="post" enctype="multipart/form-data">
+ 		     Select An image: <input type="file" name="upload" /><br>
+ 		     Event ID:        <input type="number" name="eventId" value=1 min="1" max="99999"><br>
+ 		     <input type="submit" value="submit to SendAPic" />
+ 		</form>
+ 		<form method="get" action="/downloadImageByName">
+ 		<br><br>
+			Select file name to Download: <input type="number" name="imageName" value=0 min="0" max="99999"><br>
+			select the event ID: <input type="number" name="eventId" value=1 min="0" max="99999"><br>
+			<button type="submit">Download</button>
+		</form>
+		<form method="get" action="/download">
+ 		<br><br>
+			select the event ID: <input type="number" name="eventId" value=1 min="0" max="99999"><br>
+			<button type="submit">Download</button>
+		</form>
+		<form method="get" action="/createNewEvent">
+ 		<br><br>
+			<button type="submit">Create New event</button>
+		</form>
+	</body>
+</html>
