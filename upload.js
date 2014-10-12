@@ -15,7 +15,7 @@ function UploadHandler(db){
 
 	this.showUploadPage = function(req,res,next){
 		"use strict";
-		res.sendfile('views/uploadImage.html', {root: __dirname });
+		res.sendFile('views/uploadImage.html', {root: __dirname });
 	}
 	
 	this.upload = function(req,res,next){
