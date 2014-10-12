@@ -4,7 +4,7 @@ var eventsCollection = 'SendAPicEvents';
 var eventIdMultiplier = 100000;
 var uploadsCollection = 'SendAPicUploads';
 var downloadsCollection = 'SendAPicDownloads';
-var defaultEventId = 1;
+var defaultEventId = 33785;
 
 exports.targetImagesDirectory = targetImagesDirectory;
 exports.uri = uri;
