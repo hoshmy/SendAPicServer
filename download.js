@@ -47,7 +47,7 @@ function DownloadHandler(db){
 							var fileName = _index.toString() + ".jpg";
 							if(0 <= filesInDir.indexOf(fileName))
 							{/*The file exists*/
-								var fileFullPath = directory +"\\" +fileName;
+								var fileFullPath = directory +"/" +fileName;
 								
 //								var options = {
 //								root: directory,
