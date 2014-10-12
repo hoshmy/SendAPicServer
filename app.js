@@ -7,7 +7,9 @@ var express = require('express')
   , MongoClient = require('mongodb').MongoClient // Driver for connecting to MongoDB;
   , methodOverride = require('method-override')
   , logger = require('morgan')
-  , errorHandler = require('errorhandler'); 
+  , errorHandler = require('errorhandler')
+  , bodyParser = require('body-parser')
+  , multer = require('multer');; 
 
 var app = express();
 
@@ -22,6 +24,11 @@ MongoClient.connect(configuration.uri, function(err, db) {
 //  app.use(express.bodyParser());
 //  app.use(express.multipart({ keepExtensions: true, uploadDir: __dirname + configuration.targetImagesDirectory }));
 //  app.use(express.bodyParser({ keepExtensions: true, uploadDir: __dirname + configuration.targetImagesDirectory }));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(multer());
+  
+  
   app.use(methodOverride());
 //  app.use(app.router);
   //app.use(express.static(path.join(__dirname, 'public')));
