@@ -13,6 +13,13 @@ module.exports = {
 		{
 			fs.mkdirSync(defaultEventFolder);
 		}
+		
+		//REMOVE LATER
+		var tempEventFolder = '.' + configuration.targetImagesDirectory+ '/35301';
+		if (false === fs.existsSync(tempEventFolder)) 
+		{
+			fs.mkdirSync(tempEventFolder);
+		}
 	},
 	
 	createFolderForEvent: function(_eventId){
