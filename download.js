@@ -92,6 +92,19 @@ function DownloadHandler(db){
 		});
 	}
 	
+	
+	this.downloadTextMessage = function(req,res,next){
+		"use strict";
+		var eventId = parseInt(req.query.eventId);
+		events.consumeTextMessageIfExists(eventId,function(_err,_returnCode,_message){
+			console.log('Downloading Text Messages for event: #' + eventId + ' returnCode #' + _returnCode +'\nMessage: ' +  _message);
+			res.setHeader("pca_return_code",_returnCode);
+			res.setHeader("pca_text_message",_message);
+			res.writeHead(configuration.PCA_defaultCode, {'Content-Type': 'text/plain' });
+		    res.end();
+		});
+	}
+	
 	this.downloadImageByName = function(req,res,next){
 		"use strict";
 		var eventId = req.query.eventId;

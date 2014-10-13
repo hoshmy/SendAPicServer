@@ -132,7 +132,7 @@ function EventsDAO(db) {
 	this.consumeDownloadImageIfApplicable = function(_eventId,callback)
 	{//callback(err,_downloadAvailableIndex)
 		"use strict";
-		events.findAndModify({$and:[{_id:_eventId},{numOfDownloads:{"$gt":0}}]},{},{$inc:{downloadImageIndex:1,numOfDownloads:-1}},{"new":1},function(err,doc){
+		events.findAndModify({$and:[{_id:_eventId},{numOfDownloads:{"$gt":0}}]},{},{$inc:{downloadImageIndex:1,numOfDownloads:-1}},{"new":true},function(err,doc){
 			"use strict";
 			if(err)
 			{
@@ -184,6 +184,63 @@ function EventsDAO(db) {
 				 console.log('successfully updated new image counter to: '+ updated["newImageCounter"] +' for event: ' + _eventId);
 			 }	 
 		 });   		
+	}
+	
+	this.uploadTextMessageToEvent = function(_eventId,_textMessage,callback)
+	{//callback(_returnCode)
+		"use strict";
+		
+		this.isEventOpen(_eventId,function(_err,_isOpen){
+			"use strict";
+			if(_err || false == _isOpen)
+			{
+				callback(configuration.CELL_eventNotExists);
+			}
+			else
+			{
+				events.update({_id:_eventId},{$push:{"textMessages":_textMessage}},function(_err,_updated){
+					 "use strict";
+					 if(_err)
+					 {
+						 callback(configuration.CELL_serverCouldntReceiveTextMessage);
+					 }
+					 else
+					 {
+						 callback(configuration.CELL_serverReceivedTextMessage);
+					 }
+				});
+			}
+		});
+	}
+	
+	this.consumeTextMessageIfExists = function(_eventId,callback)
+	{//callback(err,returnCode,message)
+		events.findAndModify({_id:_eventId},{},{$pop:{"textMessages":-1}},{"new":false},function(err,doc){
+			"use strict";
+			if(err)
+			{
+				callback(err,configuration.PCA_generalErrorInServer,null);
+			}
+			else
+			{
+				if(null == doc)
+				{	
+					callback(null,configuration.PCA_eventNotExists,null);
+				}
+				else
+				{/*update performed*/
+					if(doc.textMessages.length == 0)
+					{
+						callback(null,configuration.PCA_noTextMessagesAvailable,null);
+					}
+					else
+					{/*Send the first text message*/
+						callback(null,configuration.PCA_eventExistsAndOpen,doc.textMessages[0]);
+					}
+				}
+			}
+		});
+		
 	}
 	
 

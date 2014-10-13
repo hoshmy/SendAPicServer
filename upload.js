@@ -4,6 +4,8 @@ var fs = require('fs')
     ,UploadsDAO = require('./routes/uploads').UploadsDAO
     ,EventsDAO = require('./routes/events').EventsDAO;
 
+
+
 function UploadHandler(db){
 	"use strict";
 	
@@ -13,6 +15,14 @@ function UploadHandler(db){
 	var uploads = new UploadsDAO(db);
 	var imageCounter = 0;
 
+	var uploadResponse = function(res,eventId,returnCode)
+	{
+		console.log('upload image to event #' + eventId +' responded with code #' + returnCode );
+		res.writeHead(returnCode, {'Content-Type': 'text/plain' });
+	    res.end('event_id: '  + eventId);
+	}
+	
+	
 	this.showUploadPage = function(req,res,next){
 		"use strict";
 		res.sendFile('views/uploadImage.html', {root: __dirname });
@@ -22,10 +32,28 @@ function UploadHandler(db){
 		"use strict";
 		
 		/*Verify If event exists*/
-		var eventId = parseInt(req.body.eventId);
+		var returnCode = configuration.CELL_eventNotExists;
+		var event_idString = req.headers.event_id;
+		var eventIdString = req.body.eventId;
+		var eventId = 0;
+
+		if(event_idString != null)
+		{
+			eventId = parseInt(event_idString);
+		}
+		else if(eventIdString != null)
+		{
+			eventId = parseInt(eventIdString);
+		}
+		else
+		{
+			eventId = null;		
+		}
+		
 		if(null == eventId)
 		{
-			console.log('Error eventId delivered to /upload');
+//			console.log('Error eventId delivered to /upload');
+			uploadResponse(res,null,configuration.CELL_eventNotExists);
 		}
 		else
 		{
@@ -46,10 +74,13 @@ function UploadHandler(db){
 				        if (err)
 				        {
 				        	console.log(err);
+				        	uploadResponse(res,eventId,configuration.CELL_serverCouldntReceiveImage);
 				        }
 				        else
 				        {
-				        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
+//				        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
+				        	uploadResponse(res,eventId,configuration.CELL_serverReceivedImage);
+
 				        }
 			    	});
 			    	
@@ -57,13 +88,53 @@ function UploadHandler(db){
 				}
 				else
 				{
-					res.send('event #' + eventId + ' is closed');
+		        	uploadResponse(res,eventId,configuration.CELL_eventNotExists);
+//					res.send('event #' + eventId + ' is closed');
 				}
 			});
-		}		
+		}
+	};
+	
+	this.uploadTextMessage = function(req,res,next){
+		"use strict";
 		
-	}
+		/*Verify If event exists*/
+		var returnCode = configuration.CELL_eventNotExists;
+		var event_idString = req.headers.event_id;
+		var eventIdString = req.body.eventId;
+		var eventId = 0;
+		
+		var text_message = req.headers.text_message;
 
+		if(event_idString != null)
+		{
+			eventId = parseInt(event_idString);
+		}
+		else if(eventIdString != null)
+		{
+			eventId = parseInt(eventIdString);
+		}
+		else
+		{
+			eventId = null;		
+		}
+		
+		if(null == eventId)
+		{
+//			console.log('Error eventId delivered to /upload');
+			uploadResponse(res,null,configuration.CELL_eventNotExists);
+		}
+		else
+		{
+			events.uploadTextMessageToEvent(eventId,text_message,function(_returnCode){
+
+				uploadResponse(res,eventId,_returnCode);
+
+			});
+		}
+//		
+	};
+	
 	this.deleteAllImages = function(req,res,next){
 		utilities.deleteAllImages();
 		imageCounter = 1;

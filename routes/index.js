@@ -21,15 +21,19 @@ module.exports = exports = function(app, db) {
 	/*Events*/
 	app.get('/createNewEvent', eventHandler.displayCreateNewEventPage);
 	app.post('/postNewEvent' , eventHandler.createNewEvent);
+	app.post('/event_status',  eventHandler.isEventExistsAndOpen);
 
 	/*Upload*/
 	app.get('/deleteAllImages',uploadHandler.deleteAllImages);
 	app.post('/upload',multipartMiddleware,uploadHandler.upload);
 	app.get('/',uploadHandler.showUploadPage);
+	app.post('/text_message',uploadHandler.uploadTextMessage);
 
 	/*Download*/
 	app.get('/resetDeleteQueue',downloadHandler.resetDeleteQueue);
 	app.post('/ackImageDownload',downloadHandler.ackImageDownload);
 	app.get('/download',downloadHandler.download);
+	app.get('/download_text_message',downloadHandler.downloadTextMessage);
 	app.get('/downloadImageByName',downloadHandler.downloadImageByName);
+	
 };

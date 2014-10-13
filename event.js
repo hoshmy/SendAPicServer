@@ -1,6 +1,7 @@
 var EventsDAO = require('./routes/events').EventsDAO
 	,path = require('path')
-	,utilities = require('./utilities');
+	,utilities = require('./utilities')
+	,configuration = require('./configuration');
 
 function EventHandler(db){
 	"use strict";
@@ -74,6 +75,7 @@ function EventHandler(db){
 			newEventDoc["newImageCounter"] = 0;
 			newEventDoc["downloadImageIndex"] = 0;
 			newEventDoc["numOfDownloads"] = 0;
+			newEventDoc["textMessages"] = [];
 			console.log('newEventDoc:\n' + JSON.stringify(newEventDoc));
 			
 			console.log('startDay: '+ newEventDoc["startDate"].getDate());
@@ -101,6 +103,40 @@ function EventHandler(db){
 			
 			});
 		}
+	};
+	
+	this.isEventExistsAndOpen = function(req,res,next){
+		"use strict"
+		
+		var event_idString = req.headers.event_id;
+		var eventIdString = req.body.eventId;
+		var eventId = 0;
+
+		if(event_idString != null)
+		{
+			eventId = parseInt(event_idString);
+		}
+		else if(eventIdString != null)
+		{
+			eventId = parseInt(eventIdString);
+		}
+		else
+		{
+			eventId = null;		
+		}
+		
+		events.getEventDoc(eventId,function(_err,_isOpen,_event){
+			var returnCode = configuration.CELL_eventNotExists;
+			
+			if(_err == null && _event && _isOpen)
+			{
+				returnCode = configuration.CELL_eventExists;
+			}
+			
+			console.log('Event_Status to event #' + eventId +' responded with code #' + returnCode );
+			res.writeHead(returnCode, {'Content-Type': 'text/plain' });
+		    res.end('event_id: '  + eventId);
+		});
 	};
 };
 
