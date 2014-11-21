@@ -25,5 +25,15 @@
  		<br><br>
 			<button type="submit">Create New event</button>
 		</form>
+		<form method="post" action="/text_message">
+ 		<br><br>
+			select the event ID: <input type="number" name="eventId" value=1 min="0" max="99999"><br>
+			Text: <input type="text" name="text_message"><br>
+			<button type="submit">Send</button>
+		</form>
+		<form method="get" action="/createNewEvent">
+ 		<br><br>
+			<button type="submit">Create New event</button>
+		</form>
 	</body>
 </html>

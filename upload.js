@@ -105,6 +105,7 @@ function UploadHandler(db){
 		var eventId = 0;
 		
 		var text_message = req.headers.text_message;
+		var text_message2 = req.body.text_message;
 
 		if(event_idString != null)
 		{
@@ -117,6 +118,11 @@ function UploadHandler(db){
 		else
 		{
 			eventId = null;		
+		}
+		
+		if(text_message == null && text_message2 != null)
+		{
+			text_message = text_message2;
 		}
 		
 		if(null == eventId)

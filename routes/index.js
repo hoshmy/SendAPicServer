@@ -27,7 +27,8 @@ module.exports = exports = function(app, db) {
 	app.get('/deleteAllImages',uploadHandler.deleteAllImages);
 	app.post('/upload',multipartMiddleware,uploadHandler.upload);
 	app.get('/',uploadHandler.showUploadPage);
-	app.post('/text_message',uploadHandler.uploadTextMessage);
+//	app.post('/text_message',uploadHandler.uploadTextMessage);
+	app.get('/text_message',uploadHandler.uploadTextMessage);
 
 	/*Download*/
 	app.get('/resetDeleteQueue',downloadHandler.resetDeleteQueue);
