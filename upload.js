@@ -101,11 +101,13 @@ function UploadHandler(db){
 		/*Verify If event exists*/
 		var returnCode = configuration.CELL_eventNotExists;
 		var event_idString = req.headers.event_id;
-		var eventIdString = req.body.eventId;
+		var eventIdString = req.query.event_id;
+//		var eventIdString = req.body.eventId;
 		var eventId = 0;
 		
 		var text_message = req.headers.text_message;
-		var text_message2 = req.body.text_message;
+		var text_message2 = req.query.text_message;
+//		var text_message2 = req.body.text_message;
 
 		if(event_idString != null)
 		{

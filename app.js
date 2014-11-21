@@ -26,7 +26,7 @@ MongoClient.connect(configuration.uri, function(err, db) {
 //  app.use(express.bodyParser({ keepExtensions: true, uploadDir: __dirname + configuration.targetImagesDirectory }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-//  app.use(multer({ dest: __dirname + configuration.targetImagesDirectory }));
+  app.use(multer({ dest: __dirname + configuration.targetImagesDirectory }));
   
   
   app.use(methodOverride());
