@@ -100,7 +100,8 @@ function DownloadHandler(db){
 			console.log('Downloading Text Messages for event: #' + eventId + ' returnCode #' + _returnCode +'\nMessage: ' +  _message);
 			res.setHeader("pca_return_code",_returnCode);
 			res.setHeader("pca_text_message",_message);
-			res.writeHead(configuration.PCA_defaultCode, {'Content-Type': 'text/plain' });
+			res.writeHead(configuration.PCA_defaultCode, {'Content-Type': 'text/plain; charset=utf-8'});
+//			res.send(_message);
 		    res.end();
 		});
 	}
