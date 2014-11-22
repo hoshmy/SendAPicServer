@@ -35,6 +35,7 @@ MongoClient.connect(configuration.uri, function(err, db) {
   app.use(configuration.targetImagesDirectory, express.static(__dirname + configuration.targetImagesDirectory));
   app.use('/public/stylesheets/', express.static(__dirname + '/public/stylesheets/'));
   app.use('/public/js/', express.static(__dirname + '/public/js/'));
+  app.use('/public/images/', express.static(__dirname + '/public/images/'));
 
   // development only
   if ('development' == app.get('env')) 

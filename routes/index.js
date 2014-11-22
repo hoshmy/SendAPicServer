@@ -3,7 +3,8 @@ var EventHandler = require('../event')
   , DownloadHandler = require('../download')
   , multipart = require('connect-multiparty')
   , configuration = require('../configuration')
-  , path = require("path");
+  , path = require("path")
+  , WebSiteHandler = require('../webSite');
 // , ErrorHandler = require('../error').consoleErrorHandler;
 
 
@@ -17,7 +18,11 @@ module.exports = exports = function(app, db) {
 	var eventHandler = new EventHandler(db);
 	var uploadHandler = new UploadHandler(db);
 	var downloadHandler = new DownloadHandler(db);
+	var webSiteHandler = new WebSiteHandler(db);
 
+	/*General*/
+	app.get('/',webSiteHandler.webSiteIndex);
+	
 	/*Events*/
 	app.get('/createNewEvent', eventHandler.displayCreateNewEventPage);
 	app.post('/postNewEvent' , eventHandler.createNewEvent);
@@ -26,7 +31,7 @@ module.exports = exports = function(app, db) {
 	/*Upload*/
 	app.get('/deleteAllImages',uploadHandler.deleteAllImages);
 	app.post('/upload',multipartMiddleware,uploadHandler.upload);
-	app.get('/',uploadHandler.showUploadPage);
+	app.get('/uploadTest',uploadHandler.showUploadPage);
 //	app.post('/text_message',uploadHandler.uploadTextMessage);
 	app.get('/text_message',uploadHandler.uploadTextMessage);
 
